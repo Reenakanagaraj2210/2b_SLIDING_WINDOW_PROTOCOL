@@ -14,41 +14,42 @@
 ```
 import socket 
 s=socket.socket() 
-s.bind(('localhost',8080))
-
+s.bind(('localhost',800)) 
 s.listen(5) 
 c,addr=s.accept() 
+size=int(input("Enter number of frames to send : ")) 
+l=list(range(size)) 
+s=int(input("Enter Window Size : ")) 
+st=0 
+i=0 
 while True: 
-    i=input("Enter a data: ") 
-    c.send(i.encode()) 
-    ack=c.recv(1024).decode() 
-    if ack: 
-        print(ack) 
-        continue 
-    else: 
-        c.close() 
-        break 
+    while(i<len(l)): 
+            st+=s 
+            c.send(str(l[i:st]).encode()) 
+            ack=c.recv(1024).decode() 
+            if ack: 
+                print(ack) 
+                i+=s
 ```
 ### CLIENT
 ```
 import socket 
 s=socket.socket() 
-s.connect(('localhost',8080)) 
-while True: 
+s.connect(('localhost',8001))
+while True:    
     print(s.recv(1024).decode()) 
-    s.send("Acknowledgement Recived".encode())
+    s.send("acknowledgement recived from the server".encode()) 
 ```   
 ## OUPUT
 
 ### server
 
-<img width="589" height="191" alt="Screenshot 2025-10-06 161840" src="https://github.com/user-attachments/assets/90bc1a9d-c5b5-4960-9856-6628bda3dd9a" />
-
+<img width="470" height="244" alt="Screenshot 2025-10-06 232940" src="https://github.com/user-attachments/assets/b9e14ec4-c673-46e6-ba5d-e8c8dafe89b8" />
 
 ### client
 
 
-<img width="660" height="316" alt="Screenshot 2025-10-06 161829" src="https://github.com/user-attachments/assets/749f65a9-fed9-4a75-ade1-e990a0623e7b" />
+<img width="474" height="182" alt="Screenshot 2025-10-06 232948" src="https://github.com/user-attachments/assets/1096d05e-c400-4990-847a-e43b4816e928" />
 
 
 ## RESULT
